@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class BlogController {
+public class  BlogController {
 
     private PostRepository postRepository;
 
