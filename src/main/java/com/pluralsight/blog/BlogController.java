@@ -19,12 +19,27 @@ public class  BlogController {
 
     public BlogController(PostRepository postRepository) {
         this.postRepository = postRepository;
+
+    }
+        private CategoryRepository categoryRepository;
+
+    public BlogController(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+
+    }
+    @RequestMapping("/category/{id}")
+    public String categoryList(@PathVariable Long id, ModelMap modelMap) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        modelMap.put("category", category);
+        return "category-list";
     }
 
     @RequestMapping("/")
     public String listPosts(ModelMap modelMap) {
         List<Post> posts = postRepository.findAll();
         modelMap.put("posts", posts);
+        List<Category> categories = categoryRepository.findAll();
+        modelMap.put("categories", categories);
         return "home";
     }
 
